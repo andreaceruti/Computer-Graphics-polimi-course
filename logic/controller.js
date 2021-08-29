@@ -87,9 +87,10 @@ function initializeGame(){ //resetGame()
 
 	initializeObjects(); //inizializza oggetti nel modello logico
 	initializeMatrices(); //inizializza le matrici degli oggetti
-
-	//variabili di inizio gioco + aggiorna schermo
-
+    hasGameEnded = false;
+    currentLives = maxLives;
+    currentScore = 0;
+    updateScreenText();
 }
 
 function notifyBallDeath() {
@@ -120,7 +121,7 @@ function updateGameState(){
 
 function stopGame()
 {
-    currentScore += currentLives * 50;
+    currentScore += currentLives * 100;
     if(currentScore > recordScore)
         recordScore = currentScore;
     initializeBallAndPaddle();
@@ -153,7 +154,7 @@ function inputDown(e) {
 
 function reset(e) {
     if (e.keyCode === 13) { // press enter
-        resetGame();
+        initializeGame();
         if(inputDisabled)
         {
             window.addEventListener("keydown", inputDown);
