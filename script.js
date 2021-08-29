@@ -220,13 +220,13 @@ async function init(){
       //wall lateral: 35 altezza 2 spessore 2 lunghezza
       //wall upper: 2 altezza 2 spessore 63 lunghezza
 
-      ballMesh = await utils.loadMesh((modelsDir + "ball_whiteSkin.obj"));
-      paddleMesh = await utils.loadMesh((modelsDir + "paddle_blueSkin.obj"));
-      wallMeshLeft = await utils.loadMesh((modelsDir + "wall_lateral_brownSkin.obj"));
-      wallMeshRight = await utils.loadMesh((modelsDir + "wall_lateral_brownSkin.obj"));
-      wallMeshUp = await utils.loadMesh((modelsDir + "wall_upper_brownSkin.obj"))
+      ballMesh = await utils.loadMesh((modelsDir + "without_scaling/ball_whiteSkin.obj"));
+      paddleMesh = await utils.loadMesh((modelsDir + "without_scaling/paddle_blueSkin.obj"));
+      wallMeshLeft = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"));
+      wallMeshRight = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"));
+      wallMeshUp = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"))
 
-      allMeshes = [ballMesh,paddleMesh, wallMeshLeft, wallMeshRight, wallMeshUp];
+      allMeshes = [ballMesh,paddleMesh, wallMeshRight, wallMeshLeft, wallMeshUp];
 
       // load bricks
       for(let i = 0; i < 13; i++)
@@ -241,5 +241,7 @@ async function init(){
 
 window.onload = init;
 
-
+function updateScreenText(){
+  console.log("screen updating");
+}
 

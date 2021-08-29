@@ -86,7 +86,7 @@ class Ball {
                 this.position = ballPosition;
                 this.handleCollision(otherObject, difference);
             }
-        }
+        }        
     }
 
     handleCollision(otherObject, difference)

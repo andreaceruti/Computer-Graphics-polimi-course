@@ -26,6 +26,16 @@ var lookRadius = LOOK_RADIUS;
 
 var inputDisabled = false;
 
+//game variables
+// game variables
+var recordScore = 0;
+var currentScore = 0;
+var hasGameEnded = false;
+var maxLives = 1;
+var currentLives = 1;
+var maxNumBricks = 0;
+var currentNumBricks = 0;
+
 function initializeObjects(){
 	 /**
      * x goes from right to left
@@ -33,23 +43,23 @@ function initializeObjects(){
      */
     objectsList = [] //restarting game
 
-	ball = new Ball(new Vec2(0, BALL_Y), new Vec2(1, 1));
-    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1, 1));
-    wallLeft = new Wall(new Vec2(-29, -3), new Vec2(1, 1));
-    wallRight = new Wall(new Vec2(32, -3), new Vec2(1, 1));
-    wallUp = new Wall(new Vec2(1.5, -21.5), new Vec2(1, 1));
+	ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));
+    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1.5, 0.25));
+    wallRight = new Wall(new Vec2(-15.5, 0), new Vec2(0.5, 14));
+    wallLeft = new Wall(new Vec2(15.5, 0), new Vec2(0.5, 14));    
+    wallUp = new Wall(new Vec2(0, -13.5), new Vec2(16, 0.5));
 
-    objectsList.push(ball, paddle, wallLeft, wallRight, wallUp); 
+    objectsList.push(ball, paddle, wallRight, wallLeft, wallUp); 
 
-    let xStart = -23.2;
-    let xStep = 4.1;
-    let yStart = -10;
-    let yStep = 2.1;
+    let xStart = -12.6;
+    let xStep = 2.1;
+    let yStart = -4;
+    let yStep = 1.1;
     for (let j = 0; j < 3; j++)
     {
         for (let i = 0; i < 13; i++)
         {
-            objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(1, 1)));
+            objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(0.5, 0.5)));
         }
     }
 
@@ -61,6 +71,16 @@ function initializeObjects(){
 
 }
 
+function initializeBallAndPaddle() {
+    ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));
+    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1.5, 0.25));
+
+    ball.hasChanged = true;   // forces redrawn
+    paddle.hasChanged = true; // forces redrawn
+
+    objectsList[0] = ball;
+    objectsList[1] = paddle;
+}
 
 function initializeGame(){ //resetGame()
 
@@ -71,12 +91,44 @@ function initializeGame(){ //resetGame()
 
 }
 
+function notifyBallDeath() {
+    initializeBallAndPaddle();
+    currentLives--;
+    if(currentLives>0)
+    {
+        // respawn ball
+        updateScreenText();
+    }
+    else
+    {
+        stopGame();
+    }
+}
+
 function updateGameState(){
     currentTime = (new Date).getTime();
     deltaTime = currentTime - lastUpdateTime;
     lastUpdateTime = currentTime;
 
-     paddle.movePaddle(deltaTime);
+    if(ball.moving){
+        ball.moveBall(deltaTime);
+    }
+
+    paddle.movePaddle(deltaTime);
+}
+
+function stopGame()
+{
+    currentScore += currentLives * 50;
+    if(currentScore > recordScore)
+        recordScore = currentScore;
+    initializeBallAndPaddle();
+    hasGameEnded = true;
+    updateScreenText();
+    // stop receiving inputs
+    window.removeEventListener("keydown", inputDown);
+    window.removeEventListener("keyup", inputUp);
+    inputDisabled = true;
 }
 
 //add listeners on key bindings to move objects
@@ -92,6 +144,9 @@ function inputDown(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
         //move paddle to right
         paddle.moveRight = true;
+    }
+    if (e.keyCode == 32){
+        ball.startMoving();
     }
 }
 

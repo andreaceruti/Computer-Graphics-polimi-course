@@ -28,13 +28,13 @@ class Paddle {
         }
 
         // very ugly code to limit paddle position inside walls
-        if(this.position.x <= wallLeft.position.x + PADDLE_HALF_LENGTH + WALL_LATERAL_HALF_LENGTH)
-        {   
-            this.position.x = wallLeft.position.x + PADDLE_HALF_LENGTH + WALL_LATERAL_HALF_LENGTH;
+        if(this.position.x+this.scale.x > wallLeft.position.x-wallLeft.scale.x-PADDLE_WALL_PADDING)
+        {
+            this.position.x = wallLeft.position.x-wallLeft.scale.x-this.scale.x-PADDLE_WALL_PADDING;
         }
-        else if(this.position.x >= wallRight.position.x - PADDLE_HALF_LENGTH - WALL_LATERAL_HALF_LENGTH)
-        {   
-            this.position.x = wallRight.position.x - PADDLE_HALF_LENGTH - WALL_LATERAL_HALF_LENGTH;
+        else if(this.position.x-this.scale.x < wallRight.position.x+wallRight.scale.x+PADDLE_WALL_PADDING)
+        {
+            this.position.x = wallRight.position.x+wallRight.scale.x+this.scale.x+PADDLE_WALL_PADDING;
         }
     }
 }
