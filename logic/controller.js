@@ -24,6 +24,8 @@ var lastMouseY = -100;
 var mouseState = false;
 var lookRadius = LOOK_RADIUS;
 
+var inputDisabled = false;
+
 function initializeObjects(){
 	 /**
      * x goes from right to left
@@ -35,7 +37,6 @@ function initializeObjects(){
     paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1, 1));
     wallLeft = new Wall(new Vec2(-29, -3), new Vec2(1, 1));
     wallRight = new Wall(new Vec2(32, -3), new Vec2(1, 1));
-
     wallUp = new Wall(new Vec2(1.5, -21.5), new Vec2(1, 1));
 
     objectsList.push(ball, paddle, wallLeft, wallRight, wallUp); 
@@ -71,9 +72,51 @@ function initializeGame(){ //resetGame()
 }
 
 function updateGameState(){
+    currentTime = (new Date).getTime();
+    deltaTime = currentTime - lastUpdateTime;
+    lastUpdateTime = currentTime;
 
+     paddle.movePaddle(deltaTime);
 }
 
+//add listeners on key bindings to move objects
+window.addEventListener("keydown", inputDown);
+window.addEventListener("keyup", inputUp);
+window.addEventListener("keydown", reset);
+
+function inputDown(e) {
+    if (e.key === "a" || e.key === "ArrowLeft") {
+        //move paddle to left
+        paddle.moveLeft = true;
+    }
+    if (e.key === "d" || e.key === "ArrowRight") {
+        //move paddle to right
+        paddle.moveRight = true;
+    }
+}
+
+function reset(e) {
+    if (e.keyCode === 13) { // press enter
+        resetGame();
+        if(inputDisabled)
+        {
+            window.addEventListener("keydown", inputDown);
+            window.addEventListener("keyup", inputUp);
+            inputDisabled = false;
+        }
+    }
+}
+
+function inputUp(e) {
+    if (e.key === "a" || e.key === "ArrowLeft") {
+        //stop moving paddle to left
+        paddle.moveLeft = false;
+    }
+    if (e.key === "d" || e.key === "ArrowRight") {
+        //stop moving paddle to right
+        paddle.moveRight = false;
+    }
+}
 
 function setUpMouseControls(){
   // add mouse controls for 3D movement

@@ -79,6 +79,9 @@ function main(){
   
   textureLocation = gl.getUniformLocation(program, "in_texture");
 
+  //***insert fs variables here
+
+
   perspectiveMatrix = utils.MakePerspective(45, gl.canvas.width / gl.canvas.height, 1, 100 );
   //perspectiveMatrix = utils.MakeOrthogonal(gl.canvas.width/45, gl.canvas.width / gl.canvas.height, 1, 100);
   //perspectiveMatrix = utils.MakePerspective(90, gl.canvas.width / gl.canvas.height, 0.1, 100 );
@@ -135,7 +138,7 @@ function main(){
     cy = lookRadius * Math.sin(utils.degToRad(-elevation)); 
     var viewMatrix = utils.MakeView(cx, cy, cz, elevation, angle);//TODO
 
-    //pass uniforms to fs here TODO
+    //pass uniforms to fs here TODO****************************************************
 
     // add each mesh / object with its world matrix
     for (var i = 0; i < allMeshes.length; i++) {
