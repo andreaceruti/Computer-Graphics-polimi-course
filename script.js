@@ -229,12 +229,18 @@ async function init(){
       allMeshes = [ballMesh,paddleMesh, wallMeshRight, wallMeshLeft, wallMeshUp];
 
       // load bricks
-      for(let i = 0; i < 13; i++)
+      for(let i = 1; i < 13; i++){
+          i++;
           allMeshes.push(await utils.loadMesh(modelsDir + "brick_yellowSkin.obj"))
-      for(let i = 0; i < 13; i++)
+      }
+      for(let i = 1; i < 13; i++){
+          i++;
           allMeshes.push(await utils.loadMesh(modelsDir + "brick_orangeSkin.obj"))
-      for(let i = 0; i < 13; i++)
+      }
+      for(let i = 1; i < 13; i++){
+          i++;
           allMeshes.push(await utils.loadMesh(modelsDir + "brick_redSkin.obj"))
+      }
     }
 
 }

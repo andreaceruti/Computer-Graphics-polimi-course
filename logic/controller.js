@@ -54,11 +54,12 @@ function initializeObjects(){
     let xStart = -12.6;
     let xStep = 2.1;
     let yStart = -4;
-    let yStep = 1.1;
+    let yStep = 3;
     for (let j = 0; j < 3; j++)
     {
-        for (let i = 0; i < 13; i++)
-        {
+        for (let i = 0; i < 12; i++)
+        {   
+            i++;
             objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(0.5, 0.5)));
         }
     }
