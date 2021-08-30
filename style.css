@@ -1,6 +1,6 @@
 @font-face {
     font-family: Retronoid;
-    src: url('Resources/Retronoid.ttf');
+    src: url('fonts/Retronoid.ttf');
 }
 
 .body{
@@ -24,7 +24,7 @@
     padding: 1vmin;
 }
 
-.settingsDiv{
+.lightsDiv{
     user-select: none; /* Standard */
     color: white;
     position: absolute;
@@ -34,7 +34,7 @@
     right: 3%;
     text-align: right;
     padding: 1vmin;
-    font-family: "Agency FB";
+    font-family: "Arial";
 }
 
 .rightDiv{

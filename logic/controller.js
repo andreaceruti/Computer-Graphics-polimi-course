@@ -206,11 +206,8 @@ function doMouseMove(event) {
 }
 
 function doMouseWheel(event) {
-    //if(ThreeDOn)
-    //{
-        let nLookRadius = lookRadius + event.wheelDelta/250.0;
-        if((nLookRadius > 10.0) && (nLookRadius < 75.0)) {
-            lookRadius = nLookRadius;
-        }
-    //}
+    let nLookRadius = lookRadius + event.wheelDelta/250.0;
+    if((nLookRadius > 10.0) && (nLookRadius < 75.0)) {
+        lookRadius = nLookRadius;
+    }
 }
