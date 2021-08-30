@@ -37,10 +37,6 @@ var maxNumBricks = 0;
 var currentNumBricks = 0;
 
 function initializeObjects(){
-	 /**
-     * x goes from right to left
-     * y goes from up to down
-     */
     objectsList = [] //restarting game
 
 	ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));

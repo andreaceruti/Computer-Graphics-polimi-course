@@ -44,7 +44,21 @@ var vertexMatrixPositionHandle;
 //fragment shader
 var textureLocation;
 
+var dirLightAlphaHandle;
+var dirLightBetaHandle;
+var directionalLightDirectionHandle;
+var directionalLightColorHandle;
+// ambient light
+var ambientLightColorHandle;
+var ambientColorHandle;
+// material diffuse color
+var materialDiffuseColorHandle;
+// Blinn color and brightness
+var specularBlinnColorHandle;
+var specularBlinnShineHandle;
+
 var perspectiveMatrix;
+var viewMatrix;
 var vaos;
 
 //********************************************************************************************************************************************
@@ -79,12 +93,23 @@ function main(){
   
   textureLocation = gl.getUniformLocation(program, "in_texture");
 
-  //***insert fs variables here
+  //fragment shader
+  // directional light
+  directionalLightDirectionHandle = gl.getUniformLocation(program, 'directionalLightDirection');
+  directionalLightColorHandle = gl.getUniformLocation(program, 'directionalLightColor');
 
+  // ambient light
+  ambientLightColorHandle = gl.getUniformLocation(program, "ambientLight");
+  ambientColorHandle = gl.getUniformLocation(program, "ambientColor");
+  // material diffuse color
+  materialDiffuseColorHandle = gl.getUniformLocation(program, 'diffuseColor');
+  // Blinn color and brightness
+  specularBlinnColorHandle = gl.getUniformLocation(program, "specularBlinnColor");
+  specularBlinnShineHandle = gl.getUniformLocation(program, "specularBlinnShine");
 
   perspectiveMatrix = utils.MakePerspective(45, gl.canvas.width / gl.canvas.height, 1, 100 );
   //perspectiveMatrix = utils.MakeOrthogonal(gl.canvas.width/45, gl.canvas.width / gl.canvas.height, 1, 100);
-  //perspectiveMatrix = utils.MakePerspective(90, gl.canvas.width / gl.canvas.height, 0.1, 100 );
+
   vaos = new Array(allMeshes.length);
 
   function addMeshToScene(i) {
@@ -125,20 +150,32 @@ function main(){
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
 
-
-    //TODO************************************************************
     //update game state, animations
     updateGameState();
-
-    updateMatrices();
-    //*************************************************************************
+    updateMatrices();    
     
     cz = lookRadius * Math.cos(utils.degToRad(-angle)) * Math.cos(utils.degToRad(-elevation));
     cx = lookRadius * Math.sin(utils.degToRad(-angle)) * Math.cos(utils.degToRad(-elevation));
     cy = lookRadius * Math.sin(utils.degToRad(-elevation)); 
-    var viewMatrix = utils.MakeView(cx, cy, cz, elevation, angle);//TODO
+    viewMatrix = utils.MakeView(cx, cy, cz, elevation, angle);
 
-    //pass uniforms to fs here TODO****************************************************
+    //get directional light directions
+    directionalLightAlpha = utils.degToRad(dirLightAlphaHandle.value); //dirLightAlphaHandle.value
+    directionalLightBeta = utils.degToRad(dirLightBetaHandle.value);
+    directionalLightDirection = [Math.sin(directionalLightAlpha) * Math.cos(directionalLightBeta),
+                       Math.cos(directionalLightAlpha),
+                       Math.sin(directionalLightAlpha) * Math.sin(directionalLightBeta)];
+
+    //let directionalLightDirectionTransformed = utils.multiplyMatrix3Vector3(utils.sub3x3from4x4(viewMatrix), directionalLightDirection)
+
+    //pass uniforms to fs here
+    gl.uniform3fv(directionalLightDirectionHandle, directionalLightDirection);
+    gl.uniform3fv(directionalLightColorHandle, directionalLightColor);
+    gl.uniform3fv(ambientLightColorHandle, ambientLightColor);
+    gl.uniform3fv(ambientColorHandle, ambientColor);
+    gl.uniform3fv(specularBlinnColorHandle, specularBlinnColor);
+    gl.uniform1f(specularBlinnShineHandle, specularBlinnShine);
+    gl.uniform3fv(materialDiffuseColorHandle, materialDiffuseColor);
 
     // add each mesh / object with its world matrix
     for (var i = 0; i < allMeshes.length; i++) {
@@ -177,6 +214,9 @@ async function init(){
     await loadShaders();
     await loadMeshes();
 
+    dirLightAlphaHandle = document.getElementById("dirLightAlpha");
+    dirLightBetaHandle = document.getElementById("dirLightBeta");
+
     initializeGame();    
     main ();
 
@@ -214,11 +254,6 @@ async function init(){
     }
 
     async function loadMeshes(){
-      //ball: 2x2x2
-      //paddle: 1 altezza 2 spessore 6 lunghezza
-      //brick: 1 altezza 2 spessore 4 lunghezza
-      //wall lateral: 35 altezza 2 spessore 2 lunghezza
-      //wall upper: 2 altezza 2 spessore 63 lunghezza
 
       ballMesh = await utils.loadMesh((modelsDir + "without_scaling/ball_whiteSkin.obj"));
       paddleMesh = await utils.loadMesh((modelsDir + "without_scaling/paddle_blueSkin.obj"));

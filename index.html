@@ -4,19 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Arkanoid</title>
-
-    <style type="text/css">
-      body {
-        overflow: hidden;
-        margin: 0px;
-        width:  100%;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        
-      }
-    </style>
     <!--background-image: url('backgrounds/arkanoid_theme.png');-->
     <!-- Libraries --> 
     <script type="text/javascript" src="libraries/utils.js"></script>
@@ -33,6 +22,7 @@
     <script type="text/javascript" src="logic/matrices.js"></script> 
     <script type="text/javascript" src="logic/controller.js"></script>  
 
+    <script type="text/javascript" src="lights_variables.js"></script>
     <script type="text/javascript" src="script.js"></script>
   
 </head>
@@ -43,6 +33,13 @@
     Your browser does not support the HTML5 canvas element.
   </canvas>
 
+  <div class="settingsDiv">
+        <h2>Settings</h2>
+        <div>Alpha angle of Directional Light</div>
+        <div><input type="range" min="0" max="180" id="dirLightAlpha" value="0"></div><br/>
+        <div>Beta angle of Directional Light</div>
+        <div><input type="range" min="-180" max="180" id="dirLightBeta" value="0"></div><br/>
+    </div>
 
 </body>
 
