@@ -160,14 +160,14 @@ function main(){
     viewMatrix = utils.MakeView(cx, cy, cz, elevation, angle);
 
     //get directional light directions
-    directionalLightAlpha = utils.degToRad(dirLightAlphaHandle.value); //dirLightAlphaHandle.value
+    directionalLightAlpha = utils.degToRad(dirLightAlphaHandle.value); 
     directionalLightBeta = utils.degToRad(dirLightBetaHandle.value);
-    directionalLightDirection = [Math.sin(directionalLightAlpha) * Math.cos(directionalLightBeta),
+    directionalLightDirection = [-Math.cos(directionalLightAlpha) * Math.cos(directionalLightBeta),
+                                  -Math.sin(directionalLightAlpha),
+                                  -Math.cos(directionalLightAlpha) * Math.sin(directionalLightBeta)];
+    /*Math.sin(directionalLightAlpha) * Math.cos(directionalLightBeta),
                        Math.cos(directionalLightAlpha),
-                       Math.sin(directionalLightAlpha) * Math.sin(directionalLightBeta)];
-
-    //let directionalLightDirectionTransformed = utils.multiplyMatrix3Vector3(utils.sub3x3from4x4(viewMatrix), directionalLightDirection)
-
+                       Math.sin(directionalLightAlpha) * Math.sin(directionalLightBeta)*/
     //pass uniforms to fs here
     gl.uniform3fv(directionalLightDirectionHandle, directionalLightDirection);
     gl.uniform3fv(directionalLightColorHandle, directionalLightColor);
