@@ -48,6 +48,29 @@
     padding: 1vmin;
 }
 
+.bottomDiv{
+    background-color: rgb(200, 200, 200);
+    color: white;
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    top: 90%;
+    right: 25%;
+    text-align: center;
+}
+
+#userBottomTable th {
+    background-color: rgb(136, 136, 136);
+    padding: 10px;
+    text-align: center;
+}
+
+#userBottomTable td {
+    width: 12%;
+    padding: 15px;
+    text-align: center;
+}
+
 .title{
     height: 100%;
     margin: 0%;

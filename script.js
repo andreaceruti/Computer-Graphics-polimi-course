@@ -57,16 +57,90 @@ var materialDiffuseColorHandle;
 var specularBlinnColorHandle;
 var specularBlinnShineHandle;
 
+//HANOI******************************************************
+var ambientMaterialColorLocation;
+
+var lightTypelocation;
+var specularTypeLocation;
+var diffuseTypeLocation;
+var lightDecayLocation;
+var lightTargetLocation;
+
+var lightPositionLocation;
+var lightDirectionLocation;
+var lightColorLocation;
+var ambientLightColorLocation;
+
+var diffuseColorLocation;
+var specularShineLocation;
+var dToonThLocation;
+var sToonThLocation;
+
+var specularColorLocation;
+//***************************************************************************
+
 var perspectiveMatrix;
 var viewMatrix;
 var vaos;
 
 //********************************************************************************************************************************************
+
+function changeLightType(value){
+    switch(value){
+        case "direct":
+            lightType = [1.0, 0.0];
+            break;
+        case "point":
+            lightType = [0.0, 1.0];
+            break;
+    }
+}
+
+function changeDiffuseType(value){
+    switch(value){
+        case "lambert":
+            diffuseType = [1.0, 0.0];
+            break;
+        case "toon":
+            diffuseType = [0.0, 1.0];
+            break;
+        case "none":
+            diffuseType = [0.0, 0.0];
+            break;
+    }
+}
+
+function changeSpecularType(value){
+    switch(value){
+        case "blinn":
+            specularType = [0.0, 1.0, 0.0];
+            break;
+        case "phong":
+            specularType = [1.0, 0.0, 0.0];
+            break;
+        case "toonP":
+            specularType = [1.0, 0.0, 1.0];
+            break;
+        case "toonB":
+            specularType = [0.0, 1.0, 1.0];
+            break;
+        case "none":
+            specularType = [0.0, 0.0, 0.0];
+            break;
+    }
+}
+
+
+
 function main(){
   gl.clearColor(0.85, 0.85, 0.85, 1.0); //flipper --> 0.85, 0.85, 0.85, 1.0
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.enable(gl.DEPTH_TEST);
 
+
+  lightType = [1.0, 0.0]; // direct light by deafult
+  diffuseType = [1.0, 0.0]; // Lambert diffuse by deafult
+  specularType = [0.0, 1.0, 0.0]; // Blinn specular by deafult
   
   // get texture, send in buffer
     texture = gl.createTexture();
@@ -94,6 +168,30 @@ function main(){
   textureLocation = gl.getUniformLocation(program, "in_texture");
 
   //fragment shader
+
+  lightTypelocation = gl.getUniformLocation(program, 'uLightType');
+  specularTypeLocation = gl.getUniformLocation(program, 'uSpecularType');
+  diffuseTypeLocation = gl.getUniformLocation(program, 'uDiffuseType');
+
+  ambientMaterialColorLocation = gl.getUniformLocation(program, 'uColor');
+
+  lightDecayLocation = gl.getUniformLocation(program, 'uLightDecay');
+  lightTargetLocation = gl.getUniformLocation(program, 'uLightTarget');
+
+  lightPositionLocation = gl.getUniformLocation(program, 'uLightPosition');
+  lightDirectionLocation = gl.getUniformLocation(program, 'uLightDirection');
+  lightColorLocation = gl.getUniformLocation(program, 'uLightColor');
+  ambientLightColorLocation = gl.getUniformLocation(program, 'uAmbientLightColor');
+    
+  diffuseColorLocation = gl.getUniformLocation(program, 'uDiffuseColor');
+  specularShineLocation = gl.getUniformLocation(program, 'uSpecShine');
+  dToonThLocation = gl.getUniformLocation(program, 'uDToonTh');
+  sToonThLocation = gl.getUniformLocation(program, 'uSToonTh');
+
+  specularColorLocation = gl.getUniformLocation(program, 'uSpecularColor');
+
+
+
   // directional light
   directionalLightDirectionHandle = gl.getUniformLocation(program, 'directionalLightDirection');
   directionalLightColorHandle = gl.getUniformLocation(program, 'directionalLightColor');
@@ -107,6 +205,8 @@ function main(){
   specularBlinnColorHandle = gl.getUniformLocation(program, "specularBlinnColor");
   specularBlinnShineHandle = gl.getUniformLocation(program, "specularBlinnShine");
 
+
+  //*******************************************************************************************************************************************+
   perspectiveMatrix = utils.MakePerspective(45, gl.canvas.width / gl.canvas.height, 1, 100 );
   //perspectiveMatrix = utils.MakeOrthogonal(gl.canvas.width/45, gl.canvas.width / gl.canvas.height, 1, 100);
 
@@ -147,7 +247,7 @@ function main(){
 
   function drawScene(){
     // clear scene in flipper
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.83, 0.83, 0.83, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
 
     //update game state, animations
@@ -162,12 +262,16 @@ function main(){
     //get directional light directions
     directionalLightAlpha = utils.degToRad(dirLightAlphaHandle.value); 
     directionalLightBeta = utils.degToRad(dirLightBetaHandle.value);
-    directionalLightDirection = [-Math.cos(directionalLightAlpha) * Math.cos(directionalLightBeta),
-                                  -Math.sin(directionalLightAlpha),
-                                  -Math.cos(directionalLightAlpha) * Math.sin(directionalLightBeta)];
+    directionalLightDirection = [Math.sin(directionalLightAlpha) * Math.cos(directionalLightBeta),
+                       Math.cos(directionalLightAlpha),
+                       Math.sin(directionalLightAlpha) * Math.sin(directionalLightBeta)];
     /*Math.sin(directionalLightAlpha) * Math.cos(directionalLightBeta),
                        Math.cos(directionalLightAlpha),
                        Math.sin(directionalLightAlpha) * Math.sin(directionalLightBeta)*/
+
+    /*-Math.cos(directionalLightAlpha) * Math.cos(directionalLightBeta),
+                                  -Math.sin(directionalLightAlpha),
+                                  -Math.cos(directionalLightAlpha) * Math.sin(directionalLightBeta)*/
     //pass uniforms to fs here
     gl.uniform3fv(directionalLightDirectionHandle, directionalLightDirection);
     gl.uniform3fv(directionalLightColorHandle, directionalLightColor);
@@ -176,6 +280,36 @@ function main(){
     gl.uniform3fv(specularBlinnColorHandle, specularBlinnColor);
     gl.uniform1f(specularBlinnShineHandle, specularBlinnShine);
     gl.uniform3fv(materialDiffuseColorHandle, materialDiffuseColor);
+
+    gl.uniform2fv(lightTypelocation, lightType);
+
+    gl.uniform3fv(specularTypeLocation, specularType);
+    gl.uniform2fv(diffuseTypeLocation, diffuseType);
+
+
+    //***************************************************************************************************************************************
+    gl.uniform3fv(ambientMaterialColorLocation, ambientMaterialColor);
+
+    gl.uniform1f(lightDecayLocation, lightDecay);
+    gl.uniform1f(lightTargetLocation, lightTarget);
+
+    gl.uniform3fv(lightPositionLocation, lightPosition);
+    gl.uniform3fv(lightDirectionLocation, directionalLightDirection);  //lightDirection
+    gl.uniform3fv(lightColorLocation, lightColor);
+
+    var col = document.getElementById("ambientLightColor").value.substring(1,7);
+    var R = parseInt(col.substring(0,2) ,16) / 255;
+    var G = parseInt(col.substring(2,4) ,16) / 255;
+    var B = parseInt(col.substring(4,6) ,16) / 255;
+    gl.uniform3f(ambientLightColorLocation, R,G,B);
+
+    gl.uniform3fv(diffuseColorLocation, diffuseColor);
+    gl.uniform1f(specularShineLocation, specShine);
+    gl.uniform1f(dToonThLocation, DToonTh);
+    gl.uniform1f(sToonThLocation, SToonTh);
+
+    gl.uniform3fv(specularColorLocation, specularColor);
+    //****************************************************************************************************************************************
 
     // add each mesh / object with its world matrix
     for (var i = 0; i < allMeshes.length; i++) {

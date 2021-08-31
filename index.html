@@ -41,6 +41,61 @@
         <div><input type="range" min="-180" max="180" id="dirLightBeta" value="0"></div><br/>
   </div>
 
+  <div class="bottomDiv">
+
+         <table class="table" id="userBottomTable" border="1">
+        <tr>
+            <th> Light type </th>
+            <th> Ambient light </th>
+            <th> Diffuse type </th>
+            <th> Specular type </th>
+        </tr>
+        <tr>
+            <!-- Light type -->
+            <td>
+                <div>
+                    <select id="lightType" onchange="changeLightType(this.value);">
+                        <option value="direct">Direct</option>
+                        <option value="point">Point</option>
+                    </select>
+                </div>
+            </td>
+
+            <!-- Ambient light -->
+            <td>
+                <div >
+                    <input type="color" id="ambientLightColor" value="#ffffff">
+                </div>
+            </td>
+
+            <!-- Diffuse type -->
+            <td>
+                <div >
+                    <select id="diffuseType" onchange="changeDiffuseType(this.value);">
+                        <option value="lambert">Lambert</option>
+                        <option value="toon">Toon</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+            </td>
+
+            <!-- Specular type -->
+            <td>
+                <div >
+                    <select id="specularType" onchange="changeSpecularType(this.value);">
+                        <option value="blinn">Blinn</option>
+                        <option value="phong">Phong</option>
+                        <option value="toonP">Toon (Phong)</option>
+                        <option value="toonB">Toon (Blinn)</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+            </td>
+
+        </tr>
+    </table>
+  </div>
+
 </body>
 
 </html>
