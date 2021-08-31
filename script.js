@@ -45,6 +45,11 @@ var vertexMatrixPositionHandle;
 var textureLocation;
 var dirLightAlphaHandle;
 var dirLightBetaHandle;
+
+var pointLight_xHandle;
+var pointLight_yHandle;
+var pointLight_zHandle;
+
 var ambientMaterialColorLocation;
 var lightTypelocation;
 var specularTypeLocation;
@@ -238,7 +243,12 @@ function main(){
     /*-Math.cos(directionalLightAlpha) * Math.cos(directionalLightBeta),
                                   -Math.sin(directionalLightAlpha),
                                   -Math.cos(directionalLightAlpha) * Math.sin(directionalLightBeta)*/
-    
+
+    pointLight_x = (pointLight_xHandle.value);
+    pointLight_y = (pointLight_yHandle.value);
+    pointLight_z = (pointLight_zHandle.value);
+    lightPosition = [pointLight_x, pointLight_y, pointLight_z];
+
     //pass uniforms to fs here
     gl.uniform2fv(lightTypelocation, lightType);
 
@@ -306,6 +316,10 @@ async function init(){
 
     dirLightAlphaHandle = document.getElementById("dirLightAlpha");
     dirLightBetaHandle = document.getElementById("dirLightBeta");
+
+    pointLight_xHandle = document.getElementById("positionX");
+    pointLight_yHandle = document.getElementById("positionY");
+    pointLight_zHandle = document.getElementById("positionZ");
 
     initializeGame();    
     main ();

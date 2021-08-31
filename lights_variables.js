@@ -3,6 +3,11 @@
 var directionalLightAlpha;
 var directionalLightBeta;
 var directionalLightDirection;
+
+//point light
+var pointLight_x;
+var pointLight_y;
+var pointLight_z;
 //*************************************************************************************************************
 //direct or point light
 var lightType;
