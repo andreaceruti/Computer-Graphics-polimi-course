@@ -70,6 +70,10 @@ var perspectiveMatrix;
 var viewMatrix;
 var vaos;
 
+var textScoreHandle;
+var gameOverDiv;
+var gameOverTextHandle;
+
 //********************************************************************************************************************************************
 
 function changeLightType(value){
@@ -314,6 +318,10 @@ async function init(){
     await loadShaders();
     await loadMeshes();
 
+    textScoreHandle = document.getElementById("text");
+    gameOverTextHandle = document.getElementById("gameOver");
+    gameOverDiv = document.getElementById("gameOverDiv");
+
     dirLightAlphaHandle = document.getElementById("dirLightAlpha");
     dirLightBetaHandle = document.getElementById("dirLightBeta");
 
@@ -413,6 +421,22 @@ async function init(){
 window.onload = init;
 
 function updateScreenText(){
-  console.log("screen updating");
+    textScoreHandle.innerHTML = 
+        '        Score   : ' + currentScore + '<br>\n' +
+        '        Lives   : ' +  currentLives + '<br>';
+
+
+    if(hasGameEnded)
+    {
+        gameOverDiv.style = "display: block"
+        gameOverTextHandle.innerHTML =
+            '        Game Over ' + '<br>\n' +
+            '        Score   : ' + currentScore + '<br>\n' +
+            '        Press enter to restart';
+    }
+    else
+    {
+        gameOverDiv.style = "display: none"
+    }
 }
 

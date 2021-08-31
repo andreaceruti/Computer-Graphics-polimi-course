@@ -2,7 +2,7 @@
     font-family: Retronoid;
     src: url('fonts/Retronoid.ttf');
     font-family: ChakraPerch;
-    src: url('fonts/ChakraPerch.ttf');
+    src: url('fonts/ChakraPetch.ttf');
 }
 
 .body{
@@ -24,6 +24,7 @@
     left: 3%;
     text-align: left;
     padding: 1vmin;
+    font-family: "ChakraPerch";
 }
 
 .lightsDiv{
@@ -36,7 +37,7 @@
     right: 3%;
     text-align: left;
     padding: 1vmin;
-    font-family: "ChakraPerch";
+    font-family: "ChakraPetch";
 }
 
 .upperDiv{
@@ -49,6 +50,7 @@
     right: 45%;
     text-align: center;
     font-size: 3vmin;
+    font-family: "ChakraPerch";
 }
 
 .rightDiv{
@@ -61,6 +63,7 @@
     right: 3%;
     text-align: left;
     padding: 1vmin;
+    font-family: "ChakraPerch";
 }
 
 .content{
@@ -68,7 +71,7 @@
     height: 100%;
     margin: 0%;
     font-size: 2vmin;
-    font-family: "Arial";    
+    font-family: "ChakraPerch";    
     opacity: 1.0;
     overflow:auto;
 }
@@ -84,6 +87,7 @@
     right: 25%;
     text-align: center;
     font-size: 2vmin;
+    font-family: "ChakraPerch";
 }
 
 #userBottomTable th {
@@ -123,5 +127,5 @@
     height: 100%;
     color: white;
     font-size: 3vmin;
-    font-family: "Agency FB";
+    font-family: "ChakraPerch";
 }

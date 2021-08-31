@@ -31,8 +31,8 @@ var inputDisabled = false;
 var recordScore = 0;
 var currentScore = 0;
 var hasGameEnded = false;
-var maxLives = 1;
-var currentLives = 1;
+var maxLives = 2;
+var currentLives = 2;
 var maxNumBricks = 0;
 var currentNumBricks = 0;
 

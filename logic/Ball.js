@@ -28,7 +28,7 @@ class Ball {
             if(brick.hasChanged) // brick disabled
             {
                 currentNumBricks--;
-                currentScore+= 10;
+                currentScore+= 50;
                 if(currentNumBricks === 0)
                 {
                     stopGame();
