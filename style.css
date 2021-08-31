@@ -30,25 +30,49 @@
     user-select: none; /* Standard */
     color: white;
     position: absolute;
-    width: 20%;
-    height: 35%;
+    width: 15%;
+    height: 25%;
     top: 60%;
     right: 3%;
-    text-align: right;
+    text-align: left;
     padding: 1vmin;
     font-family: "ChakraPerch";
 }
 
+.upperDiv{
+    color: white;
+    user-select: none; /* Standard */
+    position: absolute;
+    width: 20%;
+    height: 5%;
+    top: 2%;
+    right: 45%;
+    text-align: center;
+    font-size: 3vmin;
+}
+
 .rightDiv{
+    color: white;
     user-select: none; /* Standard */
     position: absolute;
     width: 15%;
-    height: 10%;
+    height: 25%;
     top: 2%;
     right: 3%;
-    text-align: right;
+    text-align: left;
     padding: 1vmin;
 }
+
+.content{
+    color: white;
+    height: 100%;
+    margin: 0%;
+    font-size: 2vmin;
+    font-family: "Arial";    
+    opacity: 1.0;
+    overflow:auto;
+}
+
 
 .bottomDiv{
     background-color: rgb(200, 200, 200);
@@ -59,18 +83,21 @@
     top: 90%;
     right: 25%;
     text-align: center;
+    font-size: 2vmin;
 }
 
 #userBottomTable th {
     background-color: rgb(136, 136, 136);
     padding: 10px;
     text-align: center;
+    font-size: 2vmin;
 }
 
 #userBottomTable td {
     width: 12%;
     padding: 15px;
     text-align: center;
+    font-size: 2vmin;
 }
 
 .title{
@@ -80,16 +107,6 @@
     font-family: "Retronoid";
     color: white; 
     opacity: 1.0; 
-    overflow:auto;
-}
-
-.content{
-    height: 100%;
-    margin: 0%;
-    font-size: 2vmin;
-    font-family: "Agency FB";
-    color: white;
-    opacity: 1.0;
     overflow:auto;
 }
 

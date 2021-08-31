@@ -25,7 +25,7 @@ var ambientMaterialColor = [1.0 , 1.0, 1.0]; //white by default
 var lightDecay = 0.5;
 var lightTarget = 1.0;
 
-var lightPosition = [2.5 , 1.5 , 10.0]; // the position of the point light
+var lightPosition = [0.0 , 0.0 , 0.0]; // the position of the point light
 
 var lightDirection = [-1.0, 1.0, 1.0]; // the direction of the direct light
 
@@ -39,4 +39,4 @@ var DToonTh = 0.8;
 
 var SToonTh = 0.2;
 
-var lightColor = [0.5, 0.5, 0.5];
+var lightColor = [1.0, 1.0, 1.0];
