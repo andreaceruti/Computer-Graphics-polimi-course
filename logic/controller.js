@@ -56,7 +56,7 @@ function initializeObjects(){
         for (let i = 0; i < 12; i++)
         {   
             i++;
-            objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(0.5, 0.5)));
+            objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(1.0, 0.5)));
         }
     }
 
@@ -143,9 +143,9 @@ function inputDown(e) {
         //move paddle to right
         paddle.moveRight = true;
     }
-    if (e.keyCode == 32){
+    if (e.keyCode == 32){      
         ball.startMoving();
-    }
+    }      
 }
 
 function reset(e) {

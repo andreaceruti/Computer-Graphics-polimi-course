@@ -266,15 +266,15 @@ async function init(){
       // load bricks
       for(let i = 1; i < 13; i++){
           i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "brick_yellowSkin.obj"))
+          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_yellowSkin.obj"))
       }
       for(let i = 1; i < 13; i++){
           i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "brick_orangeSkin.obj"))
+          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_orangeSkin.obj"))
       }
       for(let i = 1; i < 13; i++){
           i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "brick_redSkin.obj"))
+          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_redSkin.obj"))
       }
     }
 
