@@ -1,6 +1,8 @@
 @font-face {
     font-family: Retronoid;
     src: url('fonts/Retronoid.ttf');
+    font-family: ChakraPerch;
+    src: url('fonts/ChakraPerch.ttf');
 }
 
 .body{
@@ -28,13 +30,13 @@
     user-select: none; /* Standard */
     color: white;
     position: absolute;
-    width: 15%;
+    width: 20%;
     height: 35%;
     top: 60%;
     right: 3%;
     text-align: right;
     padding: 1vmin;
-    font-family: "Arial";
+    font-family: "ChakraPerch";
 }
 
 .rightDiv{
