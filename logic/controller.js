@@ -39,26 +39,88 @@ var currentNumBricks = 0;
 function initializeObjects(){
     objectsList = [] //restarting game
 
-	ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));
-    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1.5, 0.25));
-    wallRight = new Wall(new Vec2(-15.5, 0), new Vec2(0.5, 14));
-    wallLeft = new Wall(new Vec2(15.5, 0), new Vec2(0.5, 14));    
-    wallUp = new Wall(new Vec2(0, -13.5), new Vec2(16, 0.5));
+    //ball
+    ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));
+
+    //paddle
+    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(2.4, 0.30));
+
+    //right wall
+    wallRight = new Wall(new Vec2(-15.5, -5), new Vec2(0.75, 19));
+
+    //left wall
+    wallLeft = new Wall(new Vec2(15.5, -5), new Vec2(0.75, 19));    
+
+    //upper wall
+    wallUp = new Wall(new Vec2(0, -24.0), new Vec2(16.2, 0.75));
 
     objectsList.push(ball, paddle, wallRight, wallLeft, wallUp); 
 
-    let xStart = -12.6;
-    let xStep = 2.1;
-    let yStart = -4;
-    let yStep = 3;
-    for (let j = 0; j < 3; j++)
+
+    //bricks
+    let xStart = -11.3;
+    let xStep = 2.5;
+    let yStart = 2.7;
+    let yStep = 2.1;
+
+    //two bottom lines
+    for (let j = 0; j < 2; j++)
     {
-        for (let i = 0; i < 12; i++)
+        for (let i = 0; i < 10; i++)
         {   
-            i++;
             objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStart-yStep*j), new Vec2(1.0, 0.5)));
         }
     }
+
+    //bottom line
+    objectsList.push(new Brick(new Vec2(xStart, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+1*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+2*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+3*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+5*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+6*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+7*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+8*xStep, -3.6), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+9*xStep, -3.6), new Vec2(1.0, 0.5)));
+    
+    //second line
+    objectsList.push(new Brick(new Vec2(xStart, -5.7), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+5*xStep, -5.7), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+9*xStep, -5.7), new Vec2(1.0, 0.5)));
+
+    //third line
+    objectsList.push(new Brick(new Vec2(xStart, -7.8), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+5*xStep, -7.8), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+7*xStep, -7.8), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+8*xStep, -7.8), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+9*xStep, -7.8), new Vec2(1.0, 0.5)));
+
+    //fourth
+    objectsList.push(new Brick(new Vec2(xStart, -9.9), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+5*xStep, -9.9), new Vec2(1.0, 0.5)));
+
+    //fifth line
+    objectsList.push(new Brick(new Vec2(xStart, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+1*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+2*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+3*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+5*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+6*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+7*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+8*xStep, -12), new Vec2(1.0, 0.5)));
+    objectsList.push(new Brick(new Vec2(xStart+9*xStep, -12), new Vec2(1.0, 0.5)));
+
+    let yStartLastTwo = -16.2;
+    //two upper lines
+    for (let j = 0; j < 2; j++)
+    {
+        for (let i = 0; i < 10; i++)
+        {   
+            objectsList.push(new Brick(new Vec2(xStart+xStep*i, yStartLastTwo-yStep*j), new Vec2(1.0, 0.5)));
+        }
+    }
+
+
 
     wallsList = objectsList.slice(2, 5);
     bricksList = objectsList.slice(5, objectsList.length);
@@ -70,7 +132,7 @@ function initializeObjects(){
 
 function initializeBallAndPaddle() {
     ball = new Ball(new Vec2(0, BALL_Y), new Vec2(BALL_RADIUS, BALL_RADIUS));
-    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(1.5, 0.25));
+    paddle = new Paddle(new Vec2(0, PADDLE_Y), new Vec2(2.4, 0.30));
 
     ball.hasChanged = true;   // forces redrawn
     paddle.hasChanged = true; // forces redrawn

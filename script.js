@@ -120,7 +120,7 @@ function changeSpecularType(value){
 
 
 function main(){
-  gl.clearColor(0.85, 0.85, 0.85, 1.0); //flipper --> 0.85, 0.85, 0.85, 1.0
+  gl.clearColor(0.306, 0.659, 0.871, 1.0); //flipper --> 0.85, 0.85, 0.85, 1.0
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.enable(gl.DEPTH_TEST);
 
@@ -133,7 +133,7 @@ function main(){
     texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
 
-    image.src = baseDir + "textures/16colors_palette.png";
+    image.src = baseDir + "textures/Red_palette.png";
     image.onload = function () {
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
@@ -218,7 +218,7 @@ function main(){
 
   function drawScene(){
     // clear scene in flipper
-    gl.clearColor(0.83, 0.83, 0.83, 1.0);
+    gl.clearColor(0.306, 0.659, 0.871, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); 
 
     //update game state, animations
@@ -322,7 +322,7 @@ async function init(){
     pointLight_zHandle = document.getElementById("positionZ");
 
     initializeGame();    
-    main ();
+    main();
 
     // prepare canvas and body styles
     function setupCanvas(){
@@ -359,29 +359,55 @@ async function init(){
 
     async function loadMeshes(){
 
-      ballMesh = await utils.loadMesh((modelsDir + "without_scaling/ball_whiteSkin.obj"));
-      paddleMesh = await utils.loadMesh((modelsDir + "without_scaling/paddle_blueSkin.obj"));
-      wallMeshLeft = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"));
-      wallMeshRight = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"));
-      wallMeshUp = await utils.loadMesh((modelsDir + "without_scaling/wall_brownSkin.obj"))
+      //ball
+      ballMesh = await utils.loadMesh((modelsDir + "red_palette/ball_white.obj"));
+      //paddle
+      paddleMesh = await utils.loadMesh((modelsDir + "red_palette/normal_red_1.obj"));
+      //left wall
+      wallMeshLeft = await utils.loadMesh((modelsDir + "red_palette/dark_red.obj"));
+      //right wall
+      wallMeshRight = await utils.loadMesh((modelsDir + "red_palette/dark_red.obj"));
+      //upper wall
+      wallMeshUp = await utils.loadMesh((modelsDir + "red_palette/dark_red.obj"));
 
       allMeshes = [ballMesh,paddleMesh, wallMeshRight, wallMeshLeft, wallMeshUp];
 
-      // load bricks
-      for(let i = 1; i < 13; i++){
-          i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_yellowSkin.obj"))
+
+      //two bottom lines
+      for(let i = 0; i < 10; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/darkest.obj"));
       }
-      for(let i = 1; i < 13; i++){
-          i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_orangeSkin.obj"))
+      for(let i = 0; i < 10; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/darkest.obj"));
       }
-      for(let i = 1; i < 13; i++){
-          i++;
-          allMeshes.push(await utils.loadMesh(modelsDir + "without_scaling/brick_redSkin.obj"))
+
+      // load bricks CG
+      for(let i = 0; i < 9; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/very_light_grey.obj"));
+      }
+      for(let i = 0; i < 3; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/light_grey.obj"));
+      }
+      for(let i = 0; i < 5; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/grey.obj"));
+      }
+      for(let i = 0; i < 2; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/light_grey.obj"));
+      }
+      //bottom
+      for(let i = 0; i < 9; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/very_light_grey.obj"));
+      }
+
+
+      //2 upper lines
+      for(let i = 0; i < 10; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/darkest.obj"));
+      }
+      for(let i = 0; i < 10; i++){
+        allMeshes.push(await utils.loadMesh(modelsDir + "red_palette/darkest.obj"));
       }
     }
-
 }
 
 window.onload = init;
