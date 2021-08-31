@@ -326,8 +326,8 @@ async function init(){
     dirLightBetaHandle = document.getElementById("dirLightBeta");
 
     pointLight_xHandle = document.getElementById("positionX");
-    pointLight_yHandle = document.getElementById("positionY");
-    pointLight_zHandle = document.getElementById("positionZ");
+    pointLight_zHandle = document.getElementById("positionY");
+    pointLight_yHandle = document.getElementById("positionZ");
 
     initializeGame();    
     main();
