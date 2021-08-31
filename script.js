@@ -43,41 +43,23 @@ var vertexMatrixPositionHandle;
 
 //fragment shader
 var textureLocation;
-
 var dirLightAlphaHandle;
 var dirLightBetaHandle;
-var directionalLightDirectionHandle;
-var directionalLightColorHandle;
-// ambient light
-var ambientLightColorHandle;
-var ambientColorHandle;
-// material diffuse color
-var materialDiffuseColorHandle;
-// Blinn color and brightness
-var specularBlinnColorHandle;
-var specularBlinnShineHandle;
-
-//HANOI******************************************************
 var ambientMaterialColorLocation;
-
 var lightTypelocation;
 var specularTypeLocation;
 var diffuseTypeLocation;
 var lightDecayLocation;
 var lightTargetLocation;
-
 var lightPositionLocation;
 var lightDirectionLocation;
 var lightColorLocation;
 var ambientLightColorLocation;
-
 var diffuseColorLocation;
 var specularShineLocation;
 var dToonThLocation;
 var sToonThLocation;
-
 var specularColorLocation;
-//***************************************************************************
 
 var perspectiveMatrix;
 var viewMatrix;
@@ -189,24 +171,8 @@ function main(){
   sToonThLocation = gl.getUniformLocation(program, 'uSToonTh');
 
   specularColorLocation = gl.getUniformLocation(program, 'uSpecularColor');
-
-
-
-  // directional light
-  directionalLightDirectionHandle = gl.getUniformLocation(program, 'directionalLightDirection');
-  directionalLightColorHandle = gl.getUniformLocation(program, 'directionalLightColor');
-
-  // ambient light
-  ambientLightColorHandle = gl.getUniformLocation(program, "ambientLight");
-  ambientColorHandle = gl.getUniformLocation(program, "ambientColor");
-  // material diffuse color
-  materialDiffuseColorHandle = gl.getUniformLocation(program, 'diffuseColor');
-  // Blinn color and brightness
-  specularBlinnColorHandle = gl.getUniformLocation(program, "specularBlinnColor");
-  specularBlinnShineHandle = gl.getUniformLocation(program, "specularBlinnShine");
-
-
   //*******************************************************************************************************************************************+
+  
   perspectiveMatrix = utils.MakePerspective(45, gl.canvas.width / gl.canvas.height, 1, 100 );
   //perspectiveMatrix = utils.MakeOrthogonal(gl.canvas.width/45, gl.canvas.width / gl.canvas.height, 1, 100);
 
@@ -272,22 +238,12 @@ function main(){
     /*-Math.cos(directionalLightAlpha) * Math.cos(directionalLightBeta),
                                   -Math.sin(directionalLightAlpha),
                                   -Math.cos(directionalLightAlpha) * Math.sin(directionalLightBeta)*/
+    
     //pass uniforms to fs here
-    gl.uniform3fv(directionalLightDirectionHandle, directionalLightDirection);
-    gl.uniform3fv(directionalLightColorHandle, directionalLightColor);
-    gl.uniform3fv(ambientLightColorHandle, ambientLightColor);
-    gl.uniform3fv(ambientColorHandle, ambientColor);
-    gl.uniform3fv(specularBlinnColorHandle, specularBlinnColor);
-    gl.uniform1f(specularBlinnShineHandle, specularBlinnShine);
-    gl.uniform3fv(materialDiffuseColorHandle, materialDiffuseColor);
-
     gl.uniform2fv(lightTypelocation, lightType);
 
     gl.uniform3fv(specularTypeLocation, specularType);
     gl.uniform2fv(diffuseTypeLocation, diffuseType);
-
-
-    //***************************************************************************************************************************************
     gl.uniform3fv(ambientMaterialColorLocation, ambientMaterialColor);
 
     gl.uniform1f(lightDecayLocation, lightDecay);

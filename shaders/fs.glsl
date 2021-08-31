@@ -8,24 +8,11 @@ in vec2 fsUV;
 
 uniform sampler2D in_texture;
 
-//*************************************************************************************************************
-uniform vec3 specularBlinnColor;
-uniform float specularBlinnShine;
-uniform vec3 diffuseColor;
-
-//directional light
-uniform vec3 directionalLightDirection;
-uniform vec3 directionalLightColor;
-
-//ambient
-uniform vec3 ambientLight;
-uniform vec3 ambientColor;
-//***************************************************************************************************************
 uniform vec2 uLightType;
 uniform vec3 uSpecularType;
 uniform vec2 uDiffuseType;
 
-uniform vec3 uColor; // the object color without texture
+uniform vec3 uColor; // the object color without texture --> object ambient Color
 
 
 uniform float uLightDecay; 
