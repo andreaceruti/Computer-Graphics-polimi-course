@@ -28,6 +28,7 @@ uniform float uDToonTh;
 uniform float uSToonTh; 
 uniform vec3 uSpecularColor;
 
+uniform vec3 uEye;
 
 out vec4 outColor;
 
@@ -119,7 +120,7 @@ void main() {
     vec4 ambLightCol = vec4(uAmbientLightColor, 1.0);
     vec4 specularCol = vec4(uSpecularColor, 1.0);
     vec3 normalVec = normalize(fsNormal);
-    vec3 eyedirVec = normalize(-fs_pos);
+    vec3 eyedirVec = normalize(uEye-fs_pos);
 
     // lights
     vec3 lightDirection = compLightDir();

@@ -74,6 +74,8 @@ var textScoreHandle;
 var gameOverDiv;
 var gameOverTextHandle;
 
+var eyePosition;
+var eyePositionHandle;
 //********************************************************************************************************************************************
 
 function changeLightType(value){
@@ -180,6 +182,8 @@ function main(){
   sToonThLocation = gl.getUniformLocation(program, 'uSToonTh');
 
   specularColorLocation = gl.getUniformLocation(program, 'uSpecularColor');
+
+  eyePositionHandle = gl.getUniformLocation(program, "uEye");
   //*******************************************************************************************************************************************+
   
   perspectiveMatrix = utils.MakePerspective(45, gl.canvas.width / gl.canvas.height, 1, 100 );
@@ -229,10 +233,13 @@ function main(){
     updateGameState();
     updateMatrices();    
     
+
     cz = lookRadius * Math.cos(utils.degToRad(-angle)) * Math.cos(utils.degToRad(-elevation));
     cx = lookRadius * Math.sin(utils.degToRad(-angle)) * Math.cos(utils.degToRad(-elevation));
     cy = lookRadius * Math.sin(utils.degToRad(-elevation)); 
     viewMatrix = utils.MakeView(cx, cy, cz, elevation, angle);
+
+    eyePosition = [cx, cy, cz];
 
     //get directional light directions
     directionalLightAlpha = utils.degToRad(dirLightAlphaHandle.value); 
@@ -279,6 +286,8 @@ function main(){
     gl.uniform1f(sToonThLocation, SToonTh);
 
     gl.uniform3fv(specularColorLocation, specularColor);
+
+    gl.uniform3fv(eyePositionHandle, eyePosition);
     //****************************************************************************************************************************************
 
     // add each mesh / object with its world matrix
