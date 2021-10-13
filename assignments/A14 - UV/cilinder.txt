@@ -1,0 +1,88 @@
+var vert3 = [[0.0,-1.0,0.0, 0.0,-1.0,0.0, 0.875, 0.875]]; //lower central point
+	var points_per_circumference_cil = 20;
+	var x = 0;
+	var y = 0;
+	var z = 0;
+	
+	
+	//lower cap
+	for (i = 0; i < points_per_circumference_cil ; i++){
+		x = Math.cos(2*Math.PI*i/points_per_circumference_cil);
+		y = -1.0;
+		z = Math.sin(2*Math.PI*i/points_per_circumference_cil);
+		vert3[i+1] = [x,y,z, 0.0, -1,0, 0,0, 0.875 + 0.125*Math.cos(2*Math.PI*i/points_per_circumference_cil), 0.875 + 0.125*Math.sin(2*Math.PI*i/points_per_circumference_cil)];
+		console.log(0.875 + 0.125*Math.cos(2*Math.PI*i/points_per_circumference_cil), 0.875 + 0.125*Math.sin(2*Math.PI*i/points_per_circumference_cil) );
+		
+	}
+	//0.875 + 0.125*Math.cos(2*Math.PI*i/points_per_circumference_cil), 0.875 + 0.125*Math.sin(2*Math.PI*i/points_per_circumference_cil)
+	
+	var ind3 = [];
+	
+	for (i = 0; i < points_per_circumference_cil - 1; i++){
+		ind3[3*(i)  ] = 0;
+		ind3[3*(i)+1] = i+1;
+		ind3[3*(i)+2] = i+2;
+	}
+	
+	ind3[3*(points_per_circumference_cil - 1)] = 0;
+	ind3[3*(points_per_circumference_cil - 1) + 1] = points_per_circumference_cil;
+	ind3[3*(points_per_circumference_cil - 1) + 2] = 1;
+	
+	console.log("********************************upper part*****************************");
+	
+	
+	//upper cap
+	vert3[points_per_circumference_cil + 1] = [0.0,1.0,0.0, 0.0,1.0,0.0, 0.625, 0.875]
+	for (i = points_per_circumference_cil + 1; i < 2*(points_per_circumference_cil) + 1 ; i++){
+		x = Math.cos(2*Math.PI*i/points_per_circumference_cil);
+		y = 1.0;
+		z = Math.sin(2*Math.PI*i/points_per_circumference_cil);
+		vert3[i+1] = [x,y,z, 0.0, 1,0, 0,0, 0.625 + 0,125*Math.cos(2*Math.PI*i/points_per_circumference_cil), 0.875 + 0.125*Math.sin(2*Math.PI*i/points_per_circumference_cil)];
+		console.log(0.875 + 0.125*Math.cos(2*Math.PI*i/points_per_circumference_cil), 0.875 + 0.125*Math.sin(2*Math.PI*i/points_per_circumference_cil) );
+		
+	}
+	
+	for (i = points_per_circumference_cil; i < 2*(points_per_circumference_cil) - 1; i++){
+		ind3[3*(i)  ] = points_per_circumference_cil + 1;
+		ind3[3*(i)+1] = i+3;
+		ind3[3*(i)+2] = i+2;
+	}
+	
+	ind3[3*(2*(points_per_circumference_cil) - 1)] = points_per_circumference_cil + 1;
+	ind3[3*(2*(points_per_circumference_cil) - 1) + 1] = points_per_circumference_cil + 2;
+	ind3[3*(2*(points_per_circumference_cil) - 1) + 2] = 2*points_per_circumference_cil + 1;
+	
+
+
+
+
+
+
+//by hand
+	vert3[1] = [1.0,-1.0,0.0, 0.0,-1.0,0.0, 	0.1, 0.875];
+	vert3[2] = [0.9510565162951535,-1.0,	, 0.0,-1.0,0.0, 0.9938820645368942, 0.9136271242968684];
+	vert3[3] = [0.8090169943749475,-1.0,0.5877852522924731, 0.0,-1.0,0.0, 	0.9761271242968684, 0.9484731565365592];
+	vert3[4] = [0.5877852522924731,-1.0,0.8090169943749475, 0.0,-1.0,0.0, 	0.9484731565365592, 0.9761271242968684];
+	vert3[5] = [0.30901699437494745,-1.0,0.9510565162951535, 0.0,-1.0,0.0, 	0.9136271242968684, 0.9938820645368942];
+	vert3[6] = [0.0,-1.0,1.0, 0.0,-1.0,0.0, 	0.875, 1.0];	
+	
+	vert3[7] = [-0.30901699437494734,-1.0,0.9510565162951536, 0.0,-1.0,0.0, 	0.8363728757031316, 0.9938820645368942];
+	vert3[8] = [-0.587785252292473,-1.0,0.8090169943749475, 0.0,-1.0,0.0, 	0.8015268434634408, 0.9761271242968684];
+	vert3[9] = [-0.8090169943749473,-1.0,0.5877852522924732, 0.0,-1.0,0.0, 	0.7738728757031316, 0.9484731565365592];
+	vert3[10] = [-0.9510565162951535,-1.0,0.3090169943749475, 0.0,-1.0,0.0, 	0.7561179354631058,0.9136271242968684];
+	vert3[11] = [-1.0,-1.0,0.0, 0.0,-1.0,0.0, 	 0.75, 0.875];
+	vert3[12] = [-0.9510565162951538,-1.0,-0.3090169943749469, 0.0,-1.0,0.0, 	 0.7561179354631058, 0.8363728757031317];
+	vert3[13] = [-0.8090169943749475,-1.0,-0.587785252292473, 0.0,-1.0,0.0, 	0.7738728757031316, 0.8015268434634408];
+	vert3[14] = [-0.5877852522924732,-1.0,-0.8090169943749473, 0.0,-1.0,0.0, 	 0.8015268434634408, 0.7738728757031316];
+	vert3[15] = [-0.30901699437494756,-1.0,-0.9510565162951535, 0.0,-1.0,0.0, 	0.8363728757031316,  0.7561179354631058];
+	vert3[16] = [0.0,-1.0,-1.0, 0.0,-1.0,0.0, 	0.875, 0.75];
+	vert3[17] = [0.30901699437494723,-1.0,-0.9510565162951536, 0.0,-1.0,0.0, 	 0.9136271242968684, 0.7561179354631058];
+	vert3[18] = [0.5877852522924729,-1.0, -0.8090169943749476, 0.0,-1.0,0.0, 	 0.9484731565365592, 0.7738728757031316];
+	vert3[19] = [0.8090169943749473,-1.0,-0.5877852522924734, 0.0,-1.0,0.0, 	0.9761271242968684,0.8015268434634408];
+	vert3[20] = [0.9510565162951535,-1.0,-0.3090169943749476, 0.0,-1.0,0.0, 	0.9938820645368942, 0.8363728757031316];
+	
+	var ind3 = [0,1,2,	0,2,3,	0,3,4,	0,4,5, 0,5,6];
+
+
+
+
